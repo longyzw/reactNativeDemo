@@ -1,8 +1,10 @@
 import React from 'react';
 import { Text } from 'react-native'
 
+const L = val => React.$L.t(val)
+
 export default class P1 extends React.Component {
     render() {
-        return <Text onPress={() => this.props.navigation.navigate('P3')}>首页</Text>
+        return <Text onPress={() => this.props.navigation.navigate('P3')}>{L('lang')}</Text>
     }
 }
