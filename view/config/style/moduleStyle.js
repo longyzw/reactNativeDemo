@@ -1,4 +1,5 @@
 import C from './appColor.json'
+import { wh, fz } from '@Com/ScreenUtil'
 
 // 底部导航样式配置
 export const bottomTabBar = {
@@ -10,19 +11,19 @@ export const bottomTabBar = {
         activeTintColor: C.color5,
         inactiveTintColor: C.color4,
         style: {
-            height: 50,
+            height: wh(100),
             backgroundColor: C.color1,
-            borderTopWidth: 1,
+            borderTopWidth: wh(2),
             borderTopColor: C.color3
         }
     },
     simple: {
-        width: 20,
-        height: 20
+        width: wh(40),
+        height: wh(40)
     },
     center: {
-        width: 30,
-        height: 30,
-        marginTop: -30
+        width: wh(60),
+        height: wh(60),
+        marginTop: wh(-60)
     }
 }

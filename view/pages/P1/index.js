@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from 'react-native'
 
-const L = val => React.$L.t(val)
+const L = val => $L.t(val)
 
 export default class P1 extends React.Component {
     render() {
