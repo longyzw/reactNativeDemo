@@ -1,8 +1,17 @@
 import React from 'react';
-import { Text } from 'react-native'
+import { View, Text } from 'react-native'
+const { RNStatusBar } = require('@components/components')
 
 export default class P4 extends React.Component {
     render() {
-        return <Text>子页面二</Text>
+        const rightButton = (
+            <Text onPress={() => console.log('----')}>haha</Text>
+        )
+        return (
+            <View>
+                <RNStatusBar backgroundColor='green' barStyle='default' leftStyle={{backgroundColor:'red'}} rightButton={rightButton} />
+                <Text>子页面二</Text>
+            </View>
+        )
     }
 }

@@ -44,6 +44,10 @@ module.exports = {
             "rootPathSuffix": "./view/config/methods",
             "rootPathPrefix": "@Com"
           },
+          {
+            "rootPathSuffix": "./view/components",
+            "rootPathPrefix": "@components"
+          },
         ]
       }
       

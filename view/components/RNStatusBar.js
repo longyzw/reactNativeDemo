@@ -1,68 +1,93 @@
+// 处理状态栏渲染
+/**
+ * @Descripttion: 设置状态栏和导航
+ * @param {
+    * * * backgroundColor, 状态栏背景颜色（任何颜色值）
+    * * * barStyle, 状态栏文本的颜色（'default', 'light-content', 'dark-content'）
+    * * * hidden, 是否隐藏状态栏（true / false）
+    * * * showHead, 是否显示导航头（false / 不传）
+    * * * leftButton, 导航栏左侧（图片路径 / false / 不传）
+    * * * rightButton, 导航栏右侧侧（组件）
+    * } 
+* @return: 
+* @Author: longyzw
+*/
+
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, StatusBar, Image, DeviceEventEmitter, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, Platform, Image, DeviceEventEmitter, TouchableOpacity } from 'react-native';
 import { wh, fz, deviceWidth, StatusBarHeight } from '@Com/ScreenUtil'
+
+const NAV_BAR_HEIGHT_ANDROID = 50;
+const NAV_BAR_HEIGHT_IOS = 44;
 
 export default class RNStatusBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            backgroundColor: this.props.backgroundColor || '',
+            barStyle: this.props.barStyle || 'default',
+            hidden: this.props.hidden || false,
+            showHead: this.props.showHead === false ? false : true,
+            leftButton: this.props.leftButton === false ? false : (this.props.leftButton ? this.props.leftButton : require('@images/common/leftBack.png'))
         }
     }
 
-    componentDidMount() {
-        this.subscription = DeviceEventEmitter.addListener('key', this.props.Refresh)
+    renderButton(leftButton){
+        return (
+            leftButton !== false ? <TouchableOpacity onPress={() => this.doPress()}>
+                <Image source={leftButton} style={[styles.myImage, this.props.leftStyle]}/>
+            </TouchableOpacity> : <Text></Text>
+        )
     }
-    componentWillUnmount() {
-        this.subscription.remove();
 
+    // 执行事件
+    doPress = () => {
+        console.log('=-==',this.props.navigation )
+        // this.props.navigation.goBack()
     }
+
     render() {
-        const background_C = this.props.backgroundColor || "transparent"
-        let content = <View style={this.props.showLeftButton ? { marginTop: wh(70), marginLeft: wh(73) } : null}>
-            <StatusBar
-                animated={true}
-                hidden={this.props.hidden}
-                backgroundColor={background_C}
-                translucent={true}
-                barStyle={this.props.barStyle}
-                showHideTransition={'fade'}
-                networkActivityIndicatorVisible={true} />
-            <View style={{ height: wh(20), paddingTop: wh(5) }} />
-            {this.props.showLeftButton ?
-                <View>
-                    <TouchableOpacity
-                        style={{
-                            height: wh(40), width: wh(40), flexDirection: 'row',
-                            alignItems: 'center'
-                        }} onPress={this.props.onLeftClick}>
-                        <Image
-                            resizeMode='contain'
-                            source={require('../images/wowoo/leftArrow.png')}
-                            style={[this.props.ArrowStyle, this.props.colorStyle ? { width: wh(43), height: wh(28), tintColor: '#ffffff' } : { width: wh(43), height: wh(28), tintColor: '#000000' }]} />
-                    </TouchableOpacity>
-                </View>
-                :
-                null
-            }
-            <View style={{ marginTop: wh(20), flexDirection: 'row', justifyContent: 'space-between', width: deviceWidth, alignItems: 'center' }}>
-                {
-                    this.props.txtShow ?
-                        <Text style={this.props.colorStyle ? { color: '#fff', fontSize: fz(40) } : { color: '#000', fontSize: fz(40) }}>{this.props.title}</Text>
-                        :
-                        null
-                }
-
-                {this.props.showRightButton ?
-                    <Text onPress={this.props.onRightClick} style={{ fontSize: fz(26), color: '#4082ff', marginRight: wh(30) }}>
-                        {this.props.rightText}
-                    </Text>
-                    :
-                    null
-                }
+        const { backgroundColor, barStyle, hidden, leftButton, showHead } = this.state
+        //如果有给出titleView的值就用这个值，反之就使用title的值为标题
+        let titleView = this.props.titleView ? this.props.titleView : <Text>{this.props.title}</Text>
+        let content = <View style={styles.navBar}>
+            {/* {this.props.leftButton} */}
+            {this.renderButton(leftButton)}
+            <View style={styles.titleViewContainer}>
+                {titleView}
             </View>
+            {this.props.rightButton ? this.props.rightButton : <Text>==</Text>}
         </View>
+
         return (<View>
-            {content}
+            <StatusBar backgroundColor={backgroundColor} barStyle={barStyle} hidden={hidden} />
+            {
+                showHead ? content: null
+            }
         </View>)
     }
 }
+
+const styles = StyleSheet.create({
+    navBar: {
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        height: Platform.OS === 'IOS' ? NAV_BAR_HEIGHT_IOS : NAV_BAR_HEIGHT_ANDROID,
+        backgroundColor: '#FFFFFF',
+        flexDirection: 'row' //组件水平显示
+    },
+    titleViewContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',//水平
+        position: 'absolute',
+        left: 40,
+        right: 40,
+        top: 0,
+        bottom: 0
+    },
+    myImage:{
+        width:22,
+        height:22,
+        margin:5
+    }
+})
