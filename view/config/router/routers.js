@@ -1,19 +1,28 @@
 import '@i18n/i18n'
 //引入页面
+/* --------------------------------------------------------------------------------------------- */
+import Login from '@pages/Login'; // 登录
+/* --------------------------------------------------------------------------------------------- */
 import Home from '@pages/Home'; // 首页
+/* --------------------------------------------------------------------------------------------- */
 import Template from '@pages/Template'; // 模板
-import Mine from '@pages/Mine'; // 我的
-import P1 from '@pages/P1/index'; // 子页面一
-import P2 from '@pages/P2/index'; // 子页面二
-import P3 from '@pages/P3/index'; // 子页面三
-import P4 from '@pages/P4/index'; // 子页面四
+/* --------------------------------------------------------------------------------------------- */
+import Mine from '@pages/Mine'; // 个人中心
+import Settings from '@pages/Mine/Settings'; // 设置模块
+/* --------------------------------------------------------------------------------------------- */
+
+// import P2 from '@pages/P2'; // 子页面二
+// import P3 from '@pages/P3'; // 子页面三
 
 // 全局路由
 export const PageRouter = {
-    P1, P2, P3, P4
+    /* ------------------------------登录/注册------------------------------ */
+    Login, 
+    /* ------------------------------个人中心模块------------------------------ */
+    Settings, 
 }
 
-// 底部导航基础参数
+// 底部导航基础参数（style传入 simple - 普通样式 或 center - 特殊样式）
 export const BottomTab = [
     {
         routeName: 'Home',
@@ -26,7 +35,7 @@ export const BottomTab = [
         routeName: 'Template',
         title: $L.t('template.title'),
         path: Template,
-        style: 'center',
+        style: 'simple',
         icon: require('@images/bottomTabs/center.png')
     },
     {

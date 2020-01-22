@@ -24,7 +24,7 @@ export default class RNStatusBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            backgroundColor: this.props.backgroundColor || '',
+            backgroundColor: this.props.backgroundColor || '#CCCCCC',
             barStyle: this.props.barStyle || 'default',
             hidden: this.props.hidden || false,
             showHead: this.props.showHead === false ? false : true,
@@ -42,8 +42,7 @@ export default class RNStatusBar extends Component {
 
     // 执行事件
     doPress = () => {
-        console.log('=-==',this.props.navigation )
-        // this.props.navigation.goBack()
+        this.props.props.navigation.goBack()
     }
 
     render() {
@@ -51,19 +50,16 @@ export default class RNStatusBar extends Component {
         //如果有给出titleView的值就用这个值，反之就使用title的值为标题
         let titleView = this.props.titleView ? this.props.titleView : <Text>{this.props.title}</Text>
         let content = <View style={styles.navBar}>
-            {/* {this.props.leftButton} */}
             {this.renderButton(leftButton)}
             <View style={styles.titleViewContainer}>
                 {titleView}
             </View>
-            {this.props.rightButton ? this.props.rightButton : <Text>==</Text>}
+            {this.props.rightButton ? this.props.rightButton : <Text></Text>}
         </View>
 
         return (<View>
             <StatusBar backgroundColor={backgroundColor} barStyle={barStyle} hidden={hidden} />
-            {
-                showHead ? content: null
-            }
+            { showHead ? content: null }
         </View>)
     }
 }

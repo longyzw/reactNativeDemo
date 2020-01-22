@@ -5,12 +5,21 @@ const { RNStatusBar } = require('@components/components')
 const L = (...val) => $L.I(`home.index.${val[0]}`, val[1] || '')
 
 export default class Home extends React.Component {
-    static navigationOptions = () => {
-        return {
-            headerTitle: '标题',
-            headerRight: (<View style={{ height: 80, width: 80 }}> 1234 </View>),
-        };
-    };
+    constructor(props) {
+        super(props),
+        this.state = {
+
+        }
+    }
+    
+    componentDidMount() {
+        this._navListener = this.props.navigation.addListener('didFocus', () => {
+            this.setState({
+                time: Date.now()
+            })
+        })
+    }
+
     render() {
         return (
         <ScrollView>

@@ -4,15 +4,18 @@ export default {
 
     },
     home: {
-        title: '首页',
+        title: '使用实例',
         index: {
             title: '首页页面'
         }
     },
     template: {
-        title: '实例'
+        title: '组件'
     },
     mine: {
-        title: '我的'
+        title: '我的',
+        settings: {
+            title: '设置'
+        }
     }
 }

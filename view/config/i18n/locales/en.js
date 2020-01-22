@@ -6,13 +6,16 @@ export default {
     home: {
         title: 'Home',
         index: {
-            title: 'home {page} page {num} dgs {sub}'
+            title: 'example'
         }
     },
     template: {
-        title: 'Template'
+        title: 'Component'
     },
     mine: {
-        title: 'My'
+        title: 'My',
+        settings: {
+            title: 'Settings'
+        }
     }
 }
