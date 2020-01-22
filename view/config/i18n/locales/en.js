@@ -1,16 +1,21 @@
 export default {
     lang: 'english',
+    logout: 'LogOut',
+    loginFirst: 'Login First',
     common: {
 
     },
     home: {
         title: 'Home',
         index: {
-            title: 'example'
+            title: 'Business code components use instance areas'
         }
     },
     template: {
-        title: 'Component'
+        title: 'Component',
+        index: {
+            title: 'Common component sample areas'
+        }
     },
     mine: {
         title: 'My',

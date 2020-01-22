@@ -1,17 +1,17 @@
 import React from "react"
-import { Image } from 'react-native';
+import { Image, DeviceEventEmitter, StatusBar } from 'react-native';
 import { bottomTabBar } from '@style/moduleStyle'
 import { BottomTab, PageRouter } from './routers'
 const { tabBarOptions } = bottomTabBar
 
 // 底部导航项
-const BottomTabNavigator = getBottomTab(BottomTab)
+export const BottomTabNavigator = getBottomTab(BottomTab)
 
 // 单个页面路由
-const PageRoute = getPageRouter(PageRouter)
+export const PageRoute = getPageRouter(PageRouter)
 
 // 底部导航参数配置
-const BottomTabOptions = { tabBarOptions }
+export const BottomTabOptions = { tabBarOptions }
 
 // 渲染icon
 /**
@@ -53,6 +53,11 @@ function getBottomTab(BottomTab) {
             navigationOptions: () => ({
                 tabBarLabel: item.title || ' ',
                 tabBarIcon: ({ focused, tintColor }) => <ImageView tintColor={tintColor} icon={item.icon} style={item.style} />,
+                tabBarOnPress: ({ navigation, defaultHandler }) => {
+                    DeviceEventEmitter.emit('key')
+                    StatusBar.setBarStyle('dark-content', false);
+                    defaultHandler();
+                }
             }),
         }
     })
@@ -66,10 +71,4 @@ function getPageRouter(PageRouter) {
         PageRouterObj[item] = { screen: PageRouter[item] }
     })
     return PageRouterObj
-}
-
-export default {
-    BottomTabNavigator,
-    BottomTabOptions,
-    PageRoute
 }

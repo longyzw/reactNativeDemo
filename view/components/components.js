@@ -14,13 +14,16 @@
 // 引入对应组件
 import RNStatusBarTemp from './RNStatusBar'; // 状态栏组件
 import ItemListTemp from './ItemList'; // 列表组件
+import RNButtonTemp from './RNButton'; // 列表组件
 
 // 抛出按需加载组件
 export const RNStatusBar = RNStatusBarTemp
 export const ItemList = ItemListTemp
+export const RNButton = RNButtonTemp
 
 // 抛出整体
 export default {
     RNStatusBar,
-    ItemList
+    ItemList,
+    RNButton
 }

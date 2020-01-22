@@ -24,6 +24,14 @@ export default class ItemList extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps,nextContext) {
+        if(nextProps.title !== this.state.title) {
+            this.setState({
+                title: this.props.title || ''
+            })
+        }
+    }
+
 
     render() {
         let { borderStyle, rightStyle, title } = this.state

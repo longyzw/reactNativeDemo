@@ -15,12 +15,13 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, StatusBar, Platform, Image, DeviceEventEmitter, TouchableOpacity } from 'react-native';
-import { wh, fz, deviceWidth, StatusBarHeight } from '@Com/ScreenUtil'
+import { withNavigation } from 'react-navigation';
+import { wh } from '@Com/ScreenUtil'
 
 const NAV_BAR_HEIGHT_ANDROID = 50;
 const NAV_BAR_HEIGHT_IOS = 44;
 
-export default class RNStatusBar extends Component {
+class RNStatusBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -32,17 +33,30 @@ export default class RNStatusBar extends Component {
         }
     }
 
+    componentDidMount() {
+        this.subscription = DeviceEventEmitter.addListener('key', this.props.Refresh)
+    }
+    componentWillUnmount() {
+        this.subscription.remove();
+    }
+
+    componentWillReceiveProps() {
+        this.setState({
+            backgroundColor: this.props.backgroundColor || '#CCCCCC'
+        })
+    }
+
     renderButton(leftButton){
         return (
             leftButton !== false ? <TouchableOpacity onPress={() => this.doPress()}>
-                <Image source={leftButton} style={[styles.myImage, this.props.leftStyle]}/>
+                <Image source={leftButton} style={[styles.backImage, this.props.leftStyle]}/>
             </TouchableOpacity> : <Text></Text>
         )
     }
 
     // 执行事件
     doPress = () => {
-        this.props.props.navigation.goBack()
+        this.props.navigation.goBack()
     }
 
     render() {
@@ -76,14 +90,18 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',//水平
         position: 'absolute',
-        left: 40,
-        right: 40,
+        left: wh(80),
+        right: wh(80),
         top: 0,
         bottom: 0
     },
-    myImage:{
-        width:22,
-        height:22,
-        margin:5
+    backImage:{
+        width: wh(60),
+        height: wh(40),
+        margin: wh(10),
+        opacity: 0.75,
+        alignSelf: 'stretch'
     }
 })
+
+export default withNavigation(RNStatusBar)

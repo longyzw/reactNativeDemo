@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-community/async-storage';
  * @param items value
  * @param callback  回调函数
  */
-export const saveLocalRepository = (key, items, callback) => {
+export const saveData = (key, items, callback) => {
     if (!items || !key) return;
     AsyncStorage.setItem(key, JSON.stringify(items), callback);
 }
@@ -19,7 +19,7 @@ export const saveLocalRepository = (key, items, callback) => {
  * @param key
  * @returns {Promise}
  */
-export const fetchLocalRepository = key => {
+export const getData = key => {
     return new Promise((resolve, reject) => {
         AsyncStorage.getItem(key, (error, result) => {
             if (!error) {
@@ -40,7 +40,7 @@ export const fetchLocalRepository = key => {
  * @param key
  * @returns {*}
  */
-export const removeLocalRepository = (key, callback) => {
+export const removeData = (key, callback) => {
     if (!key) return;
     AsyncStorage.removeItem(key, callback);
 }
@@ -50,7 +50,7 @@ export const removeLocalRepository = (key, callback) => {
  * @param keys
  * @returns {*}
  */
-export const removeMultiLocalRepository = (keys, callback) => {
+export const removeDatas = (keys, callback) => {
     if (!keys) return;
     AsyncStorage.multiRemove(keys, callback);
 }

@@ -1,4 +1,7 @@
 import '@i18n/i18n'
+import I18n from 'react-native-i18n'
+console.log('88888888888888', $L.locale, $L.t('mine.settings.title'))
+console.log('7777777777', I18n.locale, I18n.t('mine.settings.title'))
 //引入页面
 /* --------------------------------------------------------------------------------------------- */
 import Login from '@pages/Login'; // 登录
@@ -26,21 +29,21 @@ export const PageRouter = {
 export const BottomTab = [
     {
         routeName: 'Home',
-        title: $L.t('home.title'),
+        title: I18n.t('home.title'),
         path: Home,
         style: 'simple',
         icon: require('@images/bottomTabs/Home.png')
     },
     {
         routeName: 'Template',
-        title: $L.t('template.title'),
+        title: I18n.t('template.title'),
         path: Template,
         style: 'simple',
         icon: require('@images/bottomTabs/center.png')
     },
     {
         routeName: 'Mine',
-        title: $L.t('mine.title'),
+        title: I18n.t('mine.title'),
         path: Mine,
         style: 'simple',
         icon: require('@images/bottomTabs/My.png')
